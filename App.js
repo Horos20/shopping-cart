@@ -15,7 +15,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
-
+//test
 export default function App() {
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -23,7 +23,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Cart" component={Cart} />
-      </Stack.Navigator>        
+      </Stack.Navigator>
       </NavigationContainer>
    </SafeAreaView>
   );
