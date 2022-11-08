@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   View,
@@ -8,6 +8,21 @@ import {
 import Navbar from './Navbar.js';
 
 export default function Cart( {navigation} ) {
+
+const [savedProducts, setSavedProducts] = useState([]);
+
+useEffect(() => {
+  getData('product');
+}, []);
+  
+const getData = async (key) => {
+  try {
+    const jsonValue = await AsyncStorage.getItem(key)
+    setSavedProducts(jsonValue != null ? JSON.parse(jsonValue) : null);
+  } catch(e) {
+    console.log(e)
+  }
+}
 
   function padding(a, b, c, d) {
     return {
@@ -22,34 +37,22 @@ export default function Cart( {navigation} ) {
     <View>
         <Navbar navigation={navigation}/>
         <View style={{...padding(20, 6, 20, 6), justifyContent: 'center', flexWrap: 'wrap'}}>
-            <View style={{padding: 10, flexDirection: 'row'}}>
+          {savedProducts.map((product, index) => (
+            <View key={product.id} style={{padding: 10, flexDirection: 'row'}}>
               <View>
                 <Image
-                  source={require('../assets/product1.jpg')}
+                  source={product.img_path}
                   style={{ width: 120, height: 120 }}
                 />
-                <Text style={{textAlign: 'center'}}>Product 1</Text>
-                <Text style={{textAlign: 'center'}}>Price: </Text>
+                <Text style={{textAlign: 'center'}}>{product.label}</Text>
+                <Text style={{textAlign: 'center'}}>{product.price}</Text>
                 <Text style={{textAlign: 'center'}}>Amount: </Text>
               </View>
               <View>
                 <Text>Some extra information</Text>
               </View>
             </View>
-              <View style={{padding: 10, flexDirection: 'row'}}>
-                <View>
-                  <Image
-                    source={require('../assets/product2.jpg')}
-                    style={{ width: 120, height: 120 }}
-                  />
-                  <Text style={{textAlign: 'center'}}>Product 2</Text>
-                  <Text style={{textAlign: 'center'}}>Price: </Text>
-                  <Text style={{textAlign: 'center'}}>Amount: </Text>
-                </View>
-                <View>
-                  <Text>Some extra information</Text>
-                </View>
-            </View>
+          ))}
         </View>
     </View>
   )
