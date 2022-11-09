@@ -11,8 +11,8 @@ import {
 } from 'react-native';
 import Home from './src/components/Home.js';
 import Cart from './src/components/Cart.js';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
 //test
@@ -20,11 +20,11 @@ export default function App() {
   return (
     <SafeAreaView style={{flex: 1}}>
       <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Cart" component={Cart} />
-      </Stack.Navigator>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Cart" component={Cart} />
+        </Stack.Navigator>
       </NavigationContainer>
-   </SafeAreaView>
+    </SafeAreaView>
   );
 };
