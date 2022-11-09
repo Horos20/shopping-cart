@@ -27,4 +27,4 @@ export default function App() {
       </NavigationContainer>
     </SafeAreaView>
   );
-};
+}
