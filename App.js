@@ -15,7 +15,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
-//test
 export default function App() {
   return (
     <SafeAreaView style={{flex: 1}}>

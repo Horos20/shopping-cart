@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Home({navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
+  const [menuModalVisible, setMenuModalVisible] = useState(false);
   const [activeProduct, setActiveProduct] = useState({});
   const [cartProductCount, setCartProductCount] = useState(0);
 
@@ -20,7 +21,7 @@ export default function Home({navigation}) {
 
   // Api: https://react-native-async-storage.github.io/async-storage/docs/api#getitem
   const storeData = async (key, value) => {
-    var savedProducts = await getData('product');
+    let savedProducts = await getData('product');
     if (savedProducts == null) {
       savedProducts = [value];
     } else {
@@ -54,7 +55,7 @@ export default function Home({navigation}) {
   };
 
   const buyNow = () => {
-    var product = JSON.stringify(activeProduct);
+    let product = JSON.stringify(activeProduct);
     storeData('product', product);
 
     toggleModal();
@@ -62,7 +63,7 @@ export default function Home({navigation}) {
   };
 
   const addToCart = () => {
-    var product = JSON.stringify(activeProduct);
+    let product = JSON.stringify(activeProduct);
     storeData('product', product);
 
     toggleModal();
@@ -71,28 +72,28 @@ export default function Home({navigation}) {
   const productData = [
     {
       id: 1,
-      label: 'Product1',
+      label: 'Salad bowl',
       description: 'description1',
       img_path: require('../assets/product1.jpg'),
       price: 10,
     },
     {
       id: 2,
-      label: 'Product2',
+      label: 'Burger with beef',
       description: 'description2',
       img_path: require('../assets/product2.jpg'),
       price: 5,
     },
     {
       id: 3,
-      label: 'Product3',
+      label: 'Breakfast sandwich ',
       description: 'description3',
       img_path: require('../assets/product3.jpg'),
       price: 25,
     },
     {
       id: 4,
-      label: 'Product4',
+      label: 'Ravioli',
       description: 'description4',
       img_path: require('../assets/product4.jpg'),
       price: 12,
@@ -107,9 +108,17 @@ export default function Home({navigation}) {
         onBackdropPress={() => setModalVisible(false)}>
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <View
-            style={{backgroundColor: 'white', padding: 20, borderRadius: 10}}>
-            <Button title="Close" onPress={toggleModal} />
-            <Text>Modal {activeProduct.id}</Text>
+            style={{
+              backgroundColor: 'white',
+              padding: 40,
+              borderRadius: 5,
+            }}>
+            <Text style={{fontWeight: 'bold', fontSize: 20, marginBottom: 15}}>
+              You have chosen:
+            </Text>
+            <Text style={{fontWeight: 'bold', fontSize: 20}}>
+              {activeProduct.label}
+            </Text>
             <Button
               title="Buy now"
               onPress={() => {
@@ -117,11 +126,47 @@ export default function Home({navigation}) {
               }}
             />
             <Button
+              style={{marginTop: 100}}
               title="Add to cart"
               onPress={() => {
                 addToCart(activeProduct.id);
               }}
             />
+            <Button title="Close" onPress={toggleModal} />
+          </View>
+        </View>
+      </Modal>
+
+      <Modal
+        isVisible={menuModalVisible}
+        onBackdropPress={() => menuModalVisible(false)}>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <View
+            style={{
+              backgroundColor: 'white',
+              padding: 40,
+              borderRadius: 5,
+            }}>
+            <Text style={{fontWeight: 'bold', fontSize: 20, marginBottom: 15}}>
+              You have chosen:
+            </Text>
+            <Text style={{fontWeight: 'bold', fontSize: 20}}>
+              {activeProduct.label}
+            </Text>
+            <Button
+              title="Buy now"
+              onPress={() => {
+                buyNow(activeProduct.id);
+              }}
+            />
+            <Button
+              style={{marginTop: 100}}
+              title="Add to cart"
+              onPress={() => {
+                addToCart(activeProduct.id);
+              }}
+            />
+            <Button title="Close" onPress={toggleModal} />
           </View>
         </View>
       </Modal>
@@ -137,9 +182,17 @@ export default function Home({navigation}) {
             <View key={product.id} style={{padding: 10}}>
               <Image
                 source={product.img_path}
-                style={{width: 120, height: 120}}
+                style={{width: 160, height: 160}}
               />
-              <Text style={{textAlign: 'center'}}>{product.label}</Text>
+              <Text
+                style={{
+                  textAlign: 'center',
+                  fontWeight: 'bold',
+                  fontSize: 17,
+                  marginBottom: 10,
+                }}>
+                {product.label}
+              </Text>
               <Button
                 title="Buy"
                 onPress={() => {
