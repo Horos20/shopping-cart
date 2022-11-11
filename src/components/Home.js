@@ -81,21 +81,21 @@ export default function Home({navigation}) {
       label: 'Burger with beef',
       description: 'description2',
       img_path: require('../assets/product2.jpg'),
-      price: 5,
+      price: 12,
     },
     {
       id: 3,
-      label: 'Breakfast sandwich ',
+      label: 'Sandwich',
       description: 'description3',
       img_path: require('../assets/product3.jpg'),
-      price: 25,
+      price: 5,
     },
     {
       id: 4,
       label: 'Ravioli',
       description: 'description4',
       img_path: require('../assets/product4.jpg'),
-      price: 12,
+      price: 20,
     },
   ];
 
@@ -112,7 +112,7 @@ export default function Home({navigation}) {
               padding: 40,
               borderRadius: 5,
             }}>
-            <Text style={{fontWeight: 'bold', fontSize: 20, marginBottom: 15}}>
+            <Text style={{fontWeight: 'bold', fontSize: 30, marginBottom: 15}}>
               You have chosen:
             </Text>
             <Text
@@ -121,8 +121,19 @@ export default function Home({navigation}) {
                 fontSize: 20,
                 marginBottom: 10,
                 color: 'black',
+                textAlign: 'center',
               }}>
-              {activeProduct.label}
+              Item: {activeProduct.label}
+            </Text>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 20,
+                marginBottom: 10,
+                color: 'black',
+                textAlign: 'center',
+              }}>
+              Price: {activeProduct.price} €
             </Text>
             <Pressable
               style={styles.button}
@@ -164,8 +175,9 @@ export default function Home({navigation}) {
                   fontWeight: 'bold',
                   fontSize: 17,
                   marginBottom: 10,
+                  marginTop: 10,
                 }}>
-                {product.label}
+                {product.label} {product.price}€
               </Text>
               <Button
                 title="Buy"
