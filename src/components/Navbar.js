@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
-import {View, Image, TouchableOpacity, Text} from 'react-native';
+import {View, Image, TouchableOpacity, Text, Button} from 'react-native';
 import Modal from 'react-native-modal';
 
 export default function Navbar({navigation}) {
   const [menuModalVisible, setMenuModalVisible] = useState(false);
 
   function toggleMenuModal() {
-    console.log('Klikk');
     setMenuModalVisible(!menuModalVisible);
   }
 
@@ -22,14 +21,29 @@ export default function Navbar({navigation}) {
             isVisible={menuModalVisible}
             onBackdropPress={() => setMenuModalVisible(false)}>
             <View
-              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-              <View
-                style={{
-                  backgroundColor: 'white',
-                  padding: 40,
-                  borderRadius: 5,
-                }}>
-                <Text style={{fontWeight: 'bold', fontSize: 20}}>Test</Text>
+              style={{
+                padding: 30,
+                backgroundColor: 'white',
+              }}>
+              <View>
+                <Text
+                  style={{
+                    fontWeight: 'bold',
+                    fontSize: 40,
+                    textAlign: 'center',
+                  }}>
+                  Menu
+                </Text>
+                <Text
+                  style={{
+                    fontWeight: 'bold',
+                    fontSize: 20,
+                    marginTop: 10,
+                    marginBottom: 20,
+                  }}>
+                  You have opened the menu!
+                </Text>
+                <Button title={'Close'} onPress={toggleMenuModal} />
               </View>
             </View>
           </Modal>
