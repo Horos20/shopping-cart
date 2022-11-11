@@ -6,7 +6,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Home({navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
-  const [menuModalVisible, setMenuModalVisible] = useState(false);
   const [activeProduct, setActiveProduct] = useState({});
   const [cartProductCount, setCartProductCount] = useState(0);
 
@@ -106,40 +105,6 @@ export default function Home({navigation}) {
       <Modal
         isVisible={modalVisible}
         onBackdropPress={() => setModalVisible(false)}>
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <View
-            style={{
-              backgroundColor: 'white',
-              padding: 40,
-              borderRadius: 5,
-            }}>
-            <Text style={{fontWeight: 'bold', fontSize: 20, marginBottom: 15}}>
-              You have chosen:
-            </Text>
-            <Text style={{fontWeight: 'bold', fontSize: 20}}>
-              {activeProduct.label}
-            </Text>
-            <Button
-              title="Buy now"
-              onPress={() => {
-                buyNow(activeProduct.id);
-              }}
-            />
-            <Button
-              style={{marginTop: 100}}
-              title="Add to cart"
-              onPress={() => {
-                addToCart(activeProduct.id);
-              }}
-            />
-            <Button title="Close" onPress={toggleModal} />
-          </View>
-        </View>
-      </Modal>
-
-      <Modal
-        isVisible={menuModalVisible}
-        onBackdropPress={() => menuModalVisible(false)}>
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <View
             style={{
