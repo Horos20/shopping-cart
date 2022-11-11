@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, View, Image, Button} from 'react-native';
+import {Text, View, Image, Button, Pressable, StyleSheet} from 'react-native';
 import Navbar from './Navbar.js';
 import Modal from 'react-native-modal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -115,23 +115,32 @@ export default function Home({navigation}) {
             <Text style={{fontWeight: 'bold', fontSize: 20, marginBottom: 15}}>
               You have chosen:
             </Text>
-            <Text style={{fontWeight: 'bold', fontSize: 20}}>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 20,
+                marginBottom: 10,
+                color: 'black',
+              }}>
               {activeProduct.label}
             </Text>
-            <Button
-              title="Buy now"
+            <Pressable
+              style={styles.button}
               onPress={() => {
                 buyNow(activeProduct.id);
-              }}
-            />
-            <Button
-              style={{marginTop: 100}}
-              title="Add to cart"
+              }}>
+              <Text style={styles.text}>Buy now</Text>
+            </Pressable>
+            <Pressable
+              style={styles.button}
               onPress={() => {
                 addToCart(activeProduct.id);
-              }}
-            />
-            <Button title="Close" onPress={toggleModal} />
+              }}>
+              <Text style={styles.text}>Add to cart</Text>
+            </Pressable>
+            <Pressable style={styles.button} onPress={toggleModal}>
+              <Text style={styles.text}>Close</Text>
+            </Pressable>
           </View>
         </View>
       </Modal>
@@ -172,3 +181,24 @@ export default function Home({navigation}) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: '#4695ED',
+    marginTop: 4,
+    marginBottom: 4,
+  },
+  text: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'white',
+  },
+});
