@@ -1,15 +1,6 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
-import {
-  Button,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import Home from './src/components/Home.js';
 import Cart from './src/components/Cart.js';
 import {NavigationContainer} from '@react-navigation/native';
