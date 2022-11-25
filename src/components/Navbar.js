@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Image, TouchableOpacity, Text, Button} from 'react-native';
 import Modal from 'react-native-modal';
 
-export default function Navbar({navigation}) {
+export default function Navbar({navigation}, props) {
   const [menuModalVisible, setMenuModalVisible] = useState(false);
 
   function toggleMenuModal() {

@@ -24,20 +24,37 @@ export default function Home({navigation}) {
     if (savedProducts == null) {
       savedProducts = [value];
     } else {
-      // Todo: check if this item is already saved OR dont let user add already saved products to cart again
-
       savedProducts.push(value);
     }
 
-    // Keep check of the amount of products in the cart. Todo: useEffect to update this value
-    setCartProductCount(savedProducts.length);
-
-    savedProducts = JSON.stringify(savedProducts);
     try {
-      await AsyncStorage.setItem(key, savedProducts);
+      const jsonData = JSON.stringify(savedProducts);
+      await AsyncStorage.setItem(key, jsonData);
     } catch (e) {
       console.log(e);
     }
+
+    setCartProductCount(savedProducts.length);
+  };
+
+  const buyNow = () => {
+    let product = JSON.stringify(activeProduct);
+    storeData('product', product).then(r => navigation.navigate('Cart'));
+    toggleModal();
+  };
+
+  const addToCart = () => {
+    let product = JSON.stringify(activeProduct);
+    storeData('product', product).then(r => toggleModal());
+  };
+
+  const clearAllData = async () => {
+    try {
+      await AsyncStorage.clear();
+    } catch (e) {}
+    setCartProductCount(0);
+    toggleModal();
+    console.log('All data cleared');
   };
 
   function padding(a, b, c, d) {
@@ -53,47 +70,32 @@ export default function Home({navigation}) {
     setModalVisible(!modalVisible);
   };
 
-  const buyNow = () => {
-    let product = JSON.stringify(activeProduct);
-    storeData('product', product);
-
-    toggleModal();
-    navigation.navigate('Cart');
-  };
-
-  const addToCart = () => {
-    let product = JSON.stringify(activeProduct);
-    storeData('product', product);
-
-    toggleModal();
-  };
-
   const productData = [
     {
       id: 1,
       label: 'Salad bowl',
-      description: 'description1',
+      description: 'Fresh salad bowl made from organic vegetables',
       img_path: require('../assets/product1.jpg'),
       price: 10,
     },
     {
       id: 2,
       label: 'Burger with beef',
-      description: 'description2',
+      description: 'Homemade burger with beef and garlic sauce',
       img_path: require('../assets/product2.jpg'),
       price: 12,
     },
     {
       id: 3,
       label: 'Sandwich',
-      description: 'description3',
+      description: 'A breakfast sandwich with blueberrys and banana',
       img_path: require('../assets/product3.jpg'),
       price: 5,
     },
     {
       id: 4,
       label: 'Ravioli',
-      description: 'description4',
+      description: 'Fresh ravioli with seasoning',
       img_path: require('../assets/product4.jpg'),
       price: 20,
     },
@@ -149,6 +151,9 @@ export default function Home({navigation}) {
               }}>
               <Text style={styles.text}>Add to cart</Text>
             </Pressable>
+            <Pressable style={styles.button} onPress={clearAllData}>
+              <Text style={styles.text}>Clear shopping cart</Text>
+            </Pressable>
             <Pressable style={styles.button} onPress={toggleModal}>
               <Text style={styles.text}>Close</Text>
             </Pressable>
@@ -190,6 +195,10 @@ export default function Home({navigation}) {
           );
         })}
       </View>
+      <Text style={styles.cartCountText}>
+        {' '}
+        Products in your cart: {cartProductCount}{' '}
+      </Text>
     </View>
   );
 }
@@ -212,5 +221,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     letterSpacing: 0.25,
     color: 'white',
+  },
+  cartCountText: {
+    fontSize: 20,
+    textAlign: 'center',
   },
 });
